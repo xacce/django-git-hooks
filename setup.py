@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name='django-git-hooks',
-    version='0.1.8',
+    version='0.2.0',
     packages=['git_hooks', ],
     requires=['django (>= 1.3)', ],
     url='https://github.com/snznaota/django-git-hooks.git',
