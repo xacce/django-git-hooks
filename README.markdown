@@ -1,10 +1,10 @@
-*** Простое приложение для выполнения команды git pull
+# Простое приложение для выполнения команды git pull
 
-*** Для использования просто добавьте в файл url.py
- 
- url(r'^git/', include('git_hooks.urls')),
- 
-*** Далее добавьте в Вашем репозитории Hook - для отправки запроса при push-е 
+## Для использования просто добавьте в файл url.py
+  urlpatterns = patterns('',
+  *** url(r'^git/', include('git_hooks.urls')), ***
+  )
+## Далее добавьте в Вашем репозитории Hook - для отправки запроса при push-е 
     
-    http://example.com/git/pull/
+ ** http://example.com/git/pull/ **
     
