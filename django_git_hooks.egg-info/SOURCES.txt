@@ -1,0 +1,13 @@
+MANIFEST.in
+README.markdown
+gitpull.py
+manage.py
+setup.py
+django_git_hooks.egg-info/PKG-INFO
+django_git_hooks.egg-info/SOURCES.txt
+django_git_hooks.egg-info/dependency_links.txt
+django_git_hooks.egg-info/top_level.txt
+git_hooks/__init__.py
+git_hooks/urls.py
+git_hooks/views.py
+templates/git_pull.html

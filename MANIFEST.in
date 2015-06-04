@@ -1,0 +1,2 @@
+include git_hooks *.py
+include README.markdown
