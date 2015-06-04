@@ -4,13 +4,11 @@
 ```
   urlpatterns = patterns('',
     ...
-    
-    **url(r'^git/', include('git_hooks.urls')),**
-    
+    url(r'^git/', include('git_hooks.urls')),
     ...
   )
 ```
 ### Далее добавьте в Вашем репозитории Hook - для отправки запроса при push-е 
     
- ** http://example.com/git/pull/ **
+  http://example.com/git/pull/ 
     
