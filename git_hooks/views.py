@@ -6,10 +6,11 @@ from django.views.decorators.csrf import csrf_exempt
 
 from git_hooks.gitpull import GitPuller
 
+
 @csrf_exempt
 def git_pull(request):
     out = {}
-    q = GitPuller(settings.BASE_DIR)
+    q = GitPuller(getattr(settings, 'GIT_PULL_BASE_DIR', settings.BASE_DIR), getattr(settings,'GIT_PULL_BRANCH',None))
     # Запускаем процесс...
     q.run()
     try:

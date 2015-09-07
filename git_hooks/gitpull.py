@@ -8,10 +8,13 @@ from progressbar import ProgressBar, Bar, Counter, Percentage, AdaptiveETA
 from prettytable import PrettyTable
 from termcolor import colored
 
+
 class GitPuller(Thread):
     """A threaded execution of 'git status' and 'git pull'."""
-    def __init__(self, git_dir_name):
+
+    def __init__(self, git_dir_name, branch):
         Thread.__init__(self)
+        self.branch = branch
         self._git_dir_name = git_dir_name
         self.local_ok = None
         self.git_pull_ok = None
@@ -25,7 +28,7 @@ class GitPuller(Thread):
                                       shell=True, stdout=sp.PIPE,
                                       stderr=sp.STDOUT)
 
-        git_pull_process = sp.Popen('git pull origin master', cwd=self._git_dir_name,
+        git_pull_process = sp.Popen('git pull origin %s' % self.branch, cwd=self._git_dir_name,
                                     shell=True, stdout=sp.PIPE,
                                     stderr=sp.STDOUT)
 
@@ -38,11 +41,13 @@ class GitPuller(Thread):
         self.git_pull_ok = git_pull_process.returncode == 0
         self.is_up_to_date = "Already up-to-date." in self.git_pull_output
 
+
 def get_list_of_git_directories():
     """Returns a list of paths of git repos under the current directory."""
     dirs = [path[0] for path in list(os.walk('.')) if path[0].endswith('.git')]
     dirs = ['/'.join(path.split('/')[:-1]) for path in dirs]
     return sorted(dirs)
+
 
 def run_git_concurrently(base_dir):
     """Runs the 'git status' and 'git pull' commands in threads and reports
@@ -59,7 +64,7 @@ def run_git_concurrently(base_dir):
     pbar = ProgressBar(widgets=widgets, maxval=len(git_dirs))
     pbar.start()
 
-    threads = {git_dir:GitPuller(git_dir) for git_dir in git_dirs}
+    threads = {git_dir: GitPuller(git_dir) for git_dir in git_dirs}
     for thread in threads.values():
         thread.start()
 
